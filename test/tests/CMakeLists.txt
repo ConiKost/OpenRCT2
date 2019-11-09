@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 2.6)
 
+option(DISABLE_RCT2_ASSETS_TESTS "Disable tests which do require the RollerCoaster Tycoon 2 assets.")
 option(SYSTEM_GTEST "Use the googletest library provided by the system.")
 
 if (SYSTEM_GTEST)
@@ -194,7 +195,9 @@ add_executable(test_ride_ratings ${RIDE_RATINGS_TEST_SOURCES})
 SET_CHECK_CXX_FLAGS(test_ride_ratings)
 target_link_libraries(test_ride_ratings ${GTEST_LIBRARIES} libopenrct2 ${LDL} z)
 target_link_platform_libraries(test_ride_ratings)
-add_test(NAME ride_ratings COMMAND test_ride_ratings)
+if (NOT DISABLE_RCT2_ASSETS_TESTS)
+	add_test(NAME ride_ratings COMMAND test_ride_ratings)
+endif ()
 
 # Multi-launch test
 set(MULTILAUNCH_TEST_SOURCES "${CMAKE_CURRENT_LIST_DIR}/MultiLaunch.cpp"
@@ -203,7 +206,9 @@ add_executable(test_multilaunch ${MULTILAUNCH_TEST_SOURCES})
 SET_CHECK_CXX_FLAGS(test_multilaunch)
 target_link_libraries(test_multilaunch ${GTEST_LIBRARIES} libopenrct2 ${LDL} z)
 target_link_platform_libraries(test_multilaunch)
-add_test(NAME multilaunch COMMAND test_multilaunch)
+if (NOT DISABLE_RCT2_ASSETS_TESTS)
+	add_test(NAME multilaunch COMMAND test_multilaunch)
+endif ()
 
 # Tile element test
 set(TILE_ELEMENT_TEST_SOURCES "${CMAKE_CURRENT_LIST_DIR}/TileElements.cpp"
@@ -212,7 +217,9 @@ add_executable(test_tile_elements ${TILE_ELEMENT_TEST_SOURCES})
 SET_CHECK_CXX_FLAGS(test_tile_elements)
 target_link_libraries(test_tile_elements ${GTEST_LIBRARIES} libopenrct2 ${LDL} z)
 target_link_platform_libraries(test_tile_elements)
-add_test(NAME tile_elements COMMAND test_tile_elements)
+if (NOT DISABLE_RCT2_ASSETS_TESTS)
+	add_test(NAME tile_elements COMMAND test_tile_elements)
+endif ()
 
 # Replay tests
 set(REPLAY_TEST_SOURCES "${CMAKE_CURRENT_LIST_DIR}/ReplayTests.cpp"
@@ -239,4 +246,6 @@ add_executable(test_networkloadsave ${NETWORKLOADSAVE_TEST_SOURCES})
 SET_CHECK_CXX_FLAGS(test_networkloadsave)
 target_link_libraries(test_networkloadsave ${GTEST_LIBRARIES} libopenrct2 ${LDL} z)
 target_link_platform_libraries(test_networkloadsave)
-add_test(NAME networkloadsave COMMAND test_networkloadsave)
+if (NOT DISABLE_RCT2_ASSETS_TESTS)
+	add_test(NAME networkloadsave COMMAND test_networkloadsave)
+endif ()
