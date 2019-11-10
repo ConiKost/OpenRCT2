@@ -30,6 +30,8 @@ set(OBJECTS_SHA1 "56b5d22ed7da0afa750b3dcb5ac22de61e3597c2")
 set(REPLAYS_URL  "https://github.com/OpenRCT2/replays/releases/download/v0.0.4/replays.zip")
 set(REPLAYS_SHA1 "6584368CD04EC42FDC2EB5DF26FECE9A964C27B7")
 
+set (ORCT2_RESOURCE_DIR ${CMAKE_INSTALL_PREFIX}/share/${PROJECT}/)
+
 option(FORCE32 "Force 32-bit build. It will add `-m32` to compiler flags.")
 option(WITH_TESTS "Build tests")
 option(PORTABLE "Create a portable build (-rpath=$ORIGIN)" OFF)
@@ -96,6 +98,7 @@ execute_process(
     ERROR_QUIET
 )
 
+add_definitions(-DORCT2_RESOURCE_DIR="${ORCT2_RESOURCE_DIR}")
 
 # Defines
 if (USE_MMAP)
